@@ -1,5 +1,5 @@
 //課題３
-Route::get('/xxx', 'XXX\AAAController@bbb');
+Route::get('/xxx', 'AAAController@bbb');
 
 //課題４
 Route::group(['prefix' => 'admin'], function() {
