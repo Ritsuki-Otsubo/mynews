@@ -1,6 +1,6 @@
 //課題３
 Route::group(['prefix' => 'XXX'], function() {
-    Route::get('news/create', 'XXX\AAAController@bbb');
+    Route::get('xxx/create', 'XXX\AAAController@bbb');
 });
 
 //課題４
