@@ -46,6 +46,9 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
+                             <!--kadai12の課題１-->
+                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('message.Login') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('logout') }}">{{ __('message.Logout') }}</a></li>
                         </ul>
                     </div>
                 </div>
