@@ -16,22 +16,23 @@ Route::get('/', function () {
 });
 
 //ファイルでルーティングを定義します。
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
-    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('news/create', 'Admin\NewsController@add');
+    Route::post('news/create', 'Admin\NewsController@create');
+    Route::get('news/edit', 'Admin\NewsController@ediet');
+    Route::post('news/cedit', 'Admin\NewsController@update');
 });
 
-// //課題３
-// Route::group(['prefix' => 'XXX'], function() {
-//     Route::get('news/create', 'XXX\AAAController@bbb');
-// });
 
-// //課題４
-// Route::group(['prefix' => 'admin'], function() {
-//     Route::get('profile/create', 'Admin\ProfileController@add');
-//     Route::get('profile/edit', 'Admin\ProfileController@edit');
-// });
+//kadai13-課題3
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('profile/create', 'Admin\ProfileController@add');
+    Route::post('profile/create', 'Admin\ProfileController@create');
+    Route::get('profile/edit', 'Admin\ProfileController@edit');
+    Route::post('profile/edit', 'Admin\ProfileController@update');
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
