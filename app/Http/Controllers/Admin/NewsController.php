@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\History;
+use Carbon\Carbon;
 
 // 以下記述でNews Modelが扱える
 use App\News;
@@ -20,7 +22,7 @@ class NewsController extends Controller
   {
     // Varidationを行う
       $this->validate($request, News::$rules);
-      $news = new News;
+      $news = new News();
       $form = $request->all();
       // フォームから画像が送信されてきたら、保存して、$news->image_path に画像のパスを保存する
       if ($form['image']) {
@@ -85,6 +87,11 @@ class NewsController extends Controller
 
       // 該当するデータを上書きして保存する
       $news->fill($news_form)->save();
+      
+      $history = new History;
+      $history->news_id = $news->id;
+      $history->edited_at = Carbon::now();
+      $history->save();
 
       return redirect('admin/news');
   }
