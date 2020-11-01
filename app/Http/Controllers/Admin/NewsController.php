@@ -39,7 +39,7 @@ class NewsController extends Controller
       $news->fill($form);
       $news->save();
       // admin/news/createにリダイレクトする
-      return redirect('admin/news/create');
+      return redirect('admin/news');
   }
   
   
@@ -69,6 +69,7 @@ class NewsController extends Controller
 
   public function update(Request $request)
   {
+      // dd($request);
       // Validationをかける
       $this->validate($request, News::$rules);
       // News Modelからデータを取得する
@@ -77,13 +78,15 @@ class NewsController extends Controller
       $news_form = $request->all();
       if ($request->remove == 'true') {
             $news_form['image_path'] = null;
-        } elseif ($request->file('image')) {
-            $path = $request->file('image')->store('public/image');
-            $news_form['image_path'] = basename($path);
-        } else {
-            $news_form['image_path'] = $news->image_path;
-        }
+      } elseif ($request->file('image')) {
+          $path = $request->file('image')->store('public/image');
+          $news_form['image_path'] = basename($path);
+      } else {
+          $news_form['image_path'] = $news->image_path;
+      }
       unset($news_form['_token']);
+      unset($news_form['image']);
+      unset($news_form['remove']);
 
       // 該当するデータを上書きして保存する
       $news->fill($news_form)->save();
